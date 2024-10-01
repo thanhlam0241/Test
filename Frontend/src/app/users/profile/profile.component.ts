@@ -19,12 +19,11 @@ export class ProfileComponent {
   constructor(private apiService: ApiService) {
     let user = apiService.getUserInfo()!;
     this.dataSource = [
-      { name: "Name", value: user.firstName + " " + user.lastName },
-      { name: "Email", value: `${user.email}` },
-      { name: "Mobile", value: `${user.mobileNumber}` },
-      { name: "Account Status", value: `${user.accountStatus}` },
-      { name: "Created On", value: `${user.createdOn}` },
-      { name: "Type", value: `${UserType[user.userType]}` },
+      { name: 'Name', value: user.name },
+      { name: 'Email', value: `${user.email}` },
+      { name: 'Mobile', value: `${user.mobileNumber}` },
+      { name: 'Created On', value: `${user.date_joined}` },
+      { name: 'Address', value: `${user.address}` },
     ];
   }
 }

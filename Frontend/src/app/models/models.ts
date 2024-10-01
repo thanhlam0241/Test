@@ -1,18 +1,16 @@
 export interface User {
   id: number;
-  firstName: string;
-  lastName: string;
   email: string;
+  name: string;
   mobileNumber: string;
-  password: string;
-  userType: UserType;
-  accountStatus: AccountStatus;
-  createdOn: string;
+  is_staff: boolean;
+  date_joined: string;
+  address: string;
 }
 
 export interface ResultLogin {
-  access_token: string;
-  refresh_token: string;
+  access: string;
+  refresh: string;
 }
 
 export enum AccountStatus {
@@ -36,10 +34,18 @@ export interface Book {
   id: number;
   title: string;
   author: string;
-  price: number;
-  ordered: boolean;
+  publisher: string;
+  url: string;
+  available: boolean;
   bookCategoryId: number;
   bookCategory: BookCategory;
+}
+
+export interface ResultPaging<T> {
+  count: number;
+  next: string;
+  previous: string;
+  results: T[];
 }
 
 export interface BooksByCategory {
@@ -49,14 +55,13 @@ export interface BooksByCategory {
   books: Book[];
 }
 
-export interface Order {
+export interface Record {
   id: number;
   userId: number;
   userName: string | null;
   bookId: number;
   bookTitle: string;
-  orderDate: string;
-  returned: boolean;
-  returnDate: string | null;
-  finePaid: number;
+  borrow_date: string;
+  return_date: string;
+  status: string;
 }

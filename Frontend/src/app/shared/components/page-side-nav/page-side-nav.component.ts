@@ -24,7 +24,7 @@ export class PageSideNavComponent {
           router.navigateByUrl('/home');
           let user = apiService.getUserInfo();
           if (user != null) {
-            if (user.userType == UserType.ADMIN) {
+            if (user.is_staff) {
               this.panelName = 'Admin Panel';
               this.navItems = [
                 { value: 'View Books', link: '/home' },
@@ -35,7 +35,7 @@ export class PageSideNavComponent {
                 { value: 'All Orders', link: '/all-orders' },
                 { value: 'My Orders', link: '/my-orders' },
               ];
-            } else if (user.userType == UserType.STUDENT) {
+            } else {
               this.panelName = 'Student Panel';
               this.navItems = [
                 { value: 'View Books', link: '/home' },
@@ -44,7 +44,7 @@ export class PageSideNavComponent {
             }
           }
         } else if (status == 'loggedOff') {
-          this.panelName = 'Auth Panel';
+          this.panelName = '';
           router.navigateByUrl('/login');
           this.navItems = [];
         }

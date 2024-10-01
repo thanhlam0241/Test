@@ -78,10 +78,11 @@ export class MaintenanceComponent {
       id: 0,
       title: this.newBook.get('title')?.value,
       author: this.newBook.get('author')?.value,
+      url: this.newBook.get('url')?.value,
+      publisher: this.newBook.get('publisher')?.value,
       bookCategoryId: this.newBook.get('category')?.value,
-      price: this.newBook.get('price')?.value,
       bookCategory: { id: 0, category: '', subCategory: '' },
-      ordered: false,
+      available: true,
     };
 
     this.apiService.addBook(book).subscribe({

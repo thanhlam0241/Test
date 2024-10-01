@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AccountStatus,
   Book,
-  Order,
+  Record,
   User,
   UserType,
 } from '../../../models/models';
@@ -26,7 +26,7 @@ export class PageTableComponent {
   @Output()
   unblock = new EventEmitter<User>();
 
-  getFineToPay(order: Order) {
+  getFineToPay(order: Record) {
     return this.apiService.getFine(order);
   }
 

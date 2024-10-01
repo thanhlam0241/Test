@@ -17,13 +17,19 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ['email', 'password', 'id', 'is_staff', 'name', 'mobileNumber']
 
     def create(self, validated_data):
         user = User.objects.create_user(
             email=validated_data['email'],
             password=validated_data['password'],
+            name=validated_data['name'],
+            address=validated_data['address'],
         )
+        return user
+    
+    def getInfo(self, userId):
+        user = User.object.filter(email=request.data.get('email'))
         return user
 
 class LoginSerializer(serializers.Serializer):
@@ -41,7 +47,9 @@ class LoginSerializer(serializers.Serializer):
 
     def get_tokens(self, user):
         refresh = RefreshToken.for_user(user)
+        access = refresh.access_token
+        access['id'] = user.id
         return {
             'refresh': str(refresh),
-            'access': str(refresh.access_token),
+            'access': str(access),
         }

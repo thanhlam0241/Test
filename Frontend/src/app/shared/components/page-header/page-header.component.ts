@@ -16,7 +16,7 @@ export class PageHeaderComponent {
         if (res == 'loggedIn') {
           this.loggedIn = true;
           let user = apiService.getUserInfo()!;
-          this.name = `${user.firstName} ${user.lastName}`;
+          this.name = `${user.name}`;
         } else {
           this.loggedIn = false;
           this.name = '';

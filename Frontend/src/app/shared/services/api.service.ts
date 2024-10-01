@@ -5,9 +5,9 @@ import { Subject, map } from 'rxjs';
 import {
   Book,
   BookCategory,
-  Order,
+  ResultPaging,
+  Record,
   User,
-  UserType,
   ResultLogin,
 } from '../../models/models';
 
@@ -15,7 +15,7 @@ import {
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl: string = 'https://localhost:8000';
+  baseUrl: string = 'http://localhost:8000';
   userStatus: Subject<string> = new Subject();
 
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}
@@ -27,17 +27,14 @@ export class ApiService {
   }
 
   login(info: any) {
-    let params = new HttpParams()
-      .append('email', info.email)
-      .append('password', info.password);
-
     return this.http.post<ResultLogin>(this.baseUrl + '/login', {
-      params: params,
+      email: info.email,
+      password: info.password,
     });
   }
 
   isLoggedIn(): boolean {
-    if (localStorage.getItem('access_token') != null) return true;
+    if (localStorage.getItem('access') != null) return true;
     return false;
   }
 
@@ -46,25 +43,23 @@ export class ApiService {
     var decodedToken = this.jwt.decodeToken();
     var user: User = {
       id: decodedToken.id,
-      firstName: decodedToken.firstName,
-      lastName: decodedToken.lastName,
       email: decodedToken.email,
+      name: decodedToken.name,
       mobileNumber: decodedToken.mobileNumber,
-      userType: UserType[decodedToken.userType as keyof typeof UserType],
-      accountStatus: decodedToken.accountStatus,
-      createdOn: decodedToken.createdOn,
-      password: '',
+      is_staff: decodedToken.is_staff,
+      date_joined: decodedToken.date_joined,
+      address: decodedToken.address,
     };
     return user;
   }
 
   logOut() {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('access');
     this.userStatus.next('loggedOff');
   }
 
   getBooks() {
-    return this.http.get<Book[]>(this.baseUrl + 'GetBooks');
+    return this.http.get<ResultPaging<Book>>(this.baseUrl + '/books');
   }
 
   orderBook(book: Book) {
@@ -73,7 +68,7 @@ export class ApiService {
       .append('userId', userId)
       .append('bookId', book.id);
 
-    return this.http.post(this.baseUrl + 'OrderBook', null, {
+    return this.http.post(this.baseUrl + '/records', null, {
       params: params,
       responseType: 'text',
     });
@@ -82,22 +77,21 @@ export class ApiService {
   getOrdersOfUser(userId: number) {
     let params = new HttpParams().append('userId', userId);
     return this.http
-      .get<any>(this.baseUrl + 'GetOrdersOfUser', {
+      .get<any>(this.baseUrl + '/books/get_by_user_id', {
         params: params,
       })
       .pipe(
         map((orders) => {
           let newOrders = orders.map((order: any) => {
-            let newOrder: Order = {
+            let newOrder: Record = {
               id: order.id,
               userId: order.userId,
-              userName: order.user.firstName + ' ' + order.user.lastName,
+              userName: order.user.name,
               bookId: order.bookId,
               bookTitle: order.book.title,
-              orderDate: order.orderDate,
-              returned: order.returned,
-              returnDate: order.returnDate,
-              finePaid: order.finePaid,
+              borrow_date: order.borrow_date,
+              return_date: order.return_date,
+              status: order.status,
             };
             return newOrder;
           });
@@ -106,9 +100,9 @@ export class ApiService {
       );
   }
 
-  getFine(order: Order) {
+  getFine(order: Record) {
     let today = new Date();
-    let orderDate = new Date(Date.parse(order.orderDate));
+    let orderDate = new Date(Date.parse(order.borrow_date));
     orderDate.setDate(orderDate.getDate() + 10);
     if (orderDate.getTime() < today.getTime()) {
       var diff = today.getTime() - orderDate.getTime();
@@ -129,20 +123,30 @@ export class ApiService {
   }
 
   addBook(book: Book) {
-    return this.http.post(this.baseUrl + 'AddBook', book, {
+    return this.http.post(this.baseUrl + '/books', book, {
       responseType: 'text',
     });
   }
 
   deleteBook(id: number) {
-    return this.http.delete(this.baseUrl + 'DeleteBook', {
+    return this.http.delete(this.baseUrl + '/books', {
       params: new HttpParams().append('id', id),
       responseType: 'text',
     });
   }
 
+  borrowBook(userId: string, bookId: string, fine: number) {
+    return this.http.get(this.baseUrl + '/records/borrow_book', {
+      params: new HttpParams()
+        .append('userId', userId)
+        .append('bookId', bookId)
+        .append('fine', fine),
+      responseType: 'text',
+    });
+  }
+
   returnBook(userId: string, bookId: string, fine: number) {
-    return this.http.get(this.baseUrl + 'ReturnBook', {
+    return this.http.get(this.baseUrl + '/records/return_book', {
       params: new HttpParams()
         .append('userId', userId)
         .append('bookId', bookId)
@@ -152,7 +156,7 @@ export class ApiService {
   }
 
   getUsers() {
-    return this.http.get<User[]>(this.baseUrl + 'GetUsers');
+    return this.http.get<User[]>(this.baseUrl + '/users');
   }
 
   approveRequest(userId: number) {
@@ -163,19 +167,18 @@ export class ApiService {
   }
 
   getOrders() {
-    return this.http.get<any>(this.baseUrl + 'GetOrders').pipe(
+    return this.http.get<any>(this.baseUrl + '/records').pipe(
       map((orders) => {
         let newOrders = orders.map((order: any) => {
-          let newOrder: Order = {
+          let newOrder: Record = {
             id: order.id,
             userId: order.userId,
-            userName: order.user.firstName + ' ' + order.user.lastName,
+            userName: order.user.name,
             bookId: order.bookId,
             bookTitle: order.book.title,
-            orderDate: order.orderDate,
-            returned: order.returned,
-            returnDate: order.returnDate,
-            finePaid: order.finePaid,
+            borrow_date: order.borrow_date,
+            return_date: order.return_date,
+            status: order.status,
           };
           return newOrder;
         });

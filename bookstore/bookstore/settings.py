@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-ali#_*0mo(052@@!pdii=(^q+5m+$x-c&)8x0q*dn17z$&17em
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io'
+    '8000-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io',
+    'localhost', '127.0.0.1'
 ]
 
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../shared/services/api.service';
-import { Order } from '../../models/models';
+import { Record } from '../../models/models';
 
 @Component({
   selector: 'return-book',
@@ -29,9 +29,9 @@ export class ReturnBookComponent {
     let bookId = this.returnForm.get('bookId')?.value;
 
     this.apiService.getOrdersOfUser(userId).subscribe({
-      next: (res: Order[]) => {
-        if (res.some((o) => !o.returned && o.bookId == bookId)) {
-          let order: Order = res.filter((o) => o.bookId == bookId)[0];
+      next: (res: Record[]) => {
+        if (res.some((o) => !o.return_date && o.bookId == bookId)) {
+          let order: Record = res.filter((o) => o.bookId == bookId)[0];
           this.fineToPay = this.apiService.getFine(order);
         } else {
           this.snackBar.open(`User doesn't have Book with ID: ${bookId}`, 'OK');

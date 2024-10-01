@@ -18,8 +18,7 @@ export class RegisterComponent {
     private snackBar: MatSnackBar
   ) {
     this.registerForm = fb.group({
-      firstName: fb.control('', [Validators.required]),
-      lastName: fb.control('', [Validators.required]),
+      name: fb.control('', [Validators.required]),
       email: fb.control('', [Validators.required]),
       mobileNumber: fb.control('', [Validators.required]),
       password: fb.control('', [Validators.required]),
@@ -29,8 +28,7 @@ export class RegisterComponent {
 
   register() {
     let user = {
-      firstName: this.registerForm.get('firstName')?.value,
-      lastName: this.registerForm.get('lastName')?.value,
+      name: this.registerForm.get('name')?.value,
       email: this.registerForm.get('email')?.value,
       mobileNumber: this.registerForm.get('mobileNumber')?.value,
       password: this.registerForm.get('password')?.value,

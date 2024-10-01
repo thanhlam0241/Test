@@ -18,8 +18,8 @@ export class LoginComponent {
     private snackBar: MatSnackBar
   ) {
     this.loginForm = fb.group({
-      email: fb.control('', [Validators.required]),
-      password: fb.control('', [Validators.required]),
+      email: fb.control('thanhlam0241@gmail.com', [Validators.required]),
+      password: fb.control('123456', [Validators.required]),
     });
   }
 
@@ -30,10 +30,10 @@ export class LoginComponent {
     };
     this.apiService.login(loginInfo).subscribe({
       next: (res) => {
-        if (res?.access_token == null)
+        if (res?.access == null)
           this.snackBar.open('Credential are invalid!', 'OK');
         else {
-          localStorage.setItem('access_token', res?.access_token || '');
+          localStorage.setItem('access', res.access);
           this.apiService.userStatus.next('loggedIn');
         }
       },

@@ -17,9 +17,9 @@ export const appConfig: ApplicationConfig = {
       JwtModule.forRoot({
         config: {
           tokenGetter: () => {
-            return localStorage.getItem('access_token');
+            return localStorage.getItem('access');
           },
-          allowedDomains: ['localhost:7197'],
+          allowedDomains: ['localhost:8000'],
         },
       })
     ),

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Order } from '../../models/models';
+import { Record } from '../../models/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../shared/services/api.service';
 
@@ -29,14 +29,18 @@ export class AllOrdersComponent {
   ];
 
   showProgressBar: boolean = false;
-  ordersWithPendingReturns: Order[] = [];
-  ordersWithCompletedReturns: Order[] = [];
+  ordersWithPendingReturns: Record[] = [];
+  ordersWithCompletedReturns: Record[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     apiService.getOrders().subscribe({
-      next: (res: Order[]) => {
-        this.ordersWithPendingReturns = res.filter((o) => !o.returned);
-        this.ordersWithCompletedReturns = res.filter((o) => o.returned);
+      next: (res: Record[]) => {
+        this.ordersWithPendingReturns = res.filter(
+          (o) => o.status === 'Borrowed'
+        );
+        this.ordersWithCompletedReturns = res.filter(
+          (o) => o.status === 'Returned'
+        );
       },
       error: (err) => {
         this.snackBar.open('No Orders Found', 'OK');

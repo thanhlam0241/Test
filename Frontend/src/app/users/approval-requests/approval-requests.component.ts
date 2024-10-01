@@ -24,9 +24,7 @@ export class ApprovalRequestsComponent {
     apiService.getUsers().subscribe({
       next: (res: User[]) => {
         console.log(res);
-        this.users = res.filter(
-          (r) => r.accountStatus == AccountStatus.UNAPROOVED
-        );
+        this.users = res;
       },
     });
   }

@@ -41,3 +41,9 @@ class RecordViewSet(viewsets.ReadOnlyModelViewSet):
         book.available = True
         book.save()
         return Response({'status': 'Book returned successfully'})
+
+    @action(detail=False, methods=['get'])
+    def get_by_user_id(self, request, pk=None):
+        userId = request.get('q', 'userId')
+        borrow_records = Record.objects.filter(user=userId)
+        return Response(borrow_records)
