@@ -10,6 +10,11 @@ export interface User {
   createdOn: string;
 }
 
+export interface ResultLogin {
+  access_token: string;
+  refresh_token: string;
+}
+
 export enum AccountStatus {
   UNAPROOVED,
   ACTIVE,

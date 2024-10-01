@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-ali#_*0mo(052@@!pdii=(^q+5m+$x-c&)8x0q*dn17z$&17em
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '8000-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io'
+]
 
 
 # Application definition
@@ -38,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework.authtoken",
+    'rest_framework',
+    'corsheaders',
     'book',
     'record',
     'user'
@@ -51,7 +55,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200',
+    'http://localhost:8001',
+]
+CORS_ALLOW_ALL_ORIGINS = False # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 
 ROOT_URLCONF = 'bookstore.urls'
 

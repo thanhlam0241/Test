@@ -2,19 +2,26 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject, map } from 'rxjs';
-import { Book, BookCategory, Order, User, UserType } from '../../models/models';
+import {
+  Book,
+  BookCategory,
+  Order,
+  User,
+  UserType,
+  ResultLogin,
+} from '../../models/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl: string = 'https://localhost:7197/api/Library/';
+  baseUrl: string = 'https://localhost:8000';
   userStatus: Subject<string> = new Subject();
 
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}
 
   register(user: any) {
-    return this.http.post(this.baseUrl + 'Register', user, {
+    return this.http.post(this.baseUrl + '/register', user, {
       responseType: 'text',
     });
   }
@@ -24,18 +31,13 @@ export class ApiService {
       .append('email', info.email)
       .append('password', info.password);
 
-    return this.http.get(this.baseUrl + 'Login', {
+    return this.http.post<ResultLogin>(this.baseUrl + '/login', {
       params: params,
-      responseType: 'text',
     });
   }
 
   isLoggedIn(): boolean {
-    if (
-      localStorage.getItem('access_token') != null &&
-      !this.jwt.isTokenExpired()
-    )
-      return true;
+    if (localStorage.getItem('access_token') != null) return true;
     return false;
   }
 
@@ -195,9 +197,9 @@ export class ApiService {
   }
 
   unblock(userId: number) {
-    return this.http.get(this.baseUrl + "Unblock", {
-      params: new HttpParams().append("userId", userId),
-      responseType: "text",
+    return this.http.get(this.baseUrl + 'Unblock', {
+      params: new HttpParams().append('userId', userId),
+      responseType: 'text',
     });
   }
 }
