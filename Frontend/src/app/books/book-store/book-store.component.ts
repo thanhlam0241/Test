@@ -9,6 +9,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
   templateUrl: './book-store.component.html',
   styleUrl: './book-store.component.scss',
   imports: [MatGridListModule],
+  standalone: true,
 })
 export class BookStoreComponent {
   displayedColumns: string[] = [
