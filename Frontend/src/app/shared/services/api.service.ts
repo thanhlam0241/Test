@@ -10,12 +10,13 @@ import {
   User,
   ResultLogin,
 } from '../../models/models';
+import { environment as env } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl: string = 'http://localhost:8000';
+  baseUrl: string = env.apiUrl;
   userStatus: Subject<string> = new Subject();
 
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}

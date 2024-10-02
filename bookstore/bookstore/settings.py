@@ -23,13 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ali#_*0mo(052@@!pdii=(^q+5m+$x-c&)8x0q*dn17z$&17em'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io',
-    'localhost', '127.0.0.1'
+    'localhost', '127.0.0.1',
+    '4200-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io',
+    'http://localhost', 'http://127.0.0.1',
+    '4200-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io'
+]
 
 # Application definition
 
@@ -39,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.staticfiles",
+    "debug_toolbar",
     "rest_framework.authtoken",
     'rest_framework',
     'corsheaders',
@@ -58,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',

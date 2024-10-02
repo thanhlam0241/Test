@@ -52,4 +52,5 @@ class LoginSerializer(serializers.Serializer):
         return {
             'refresh': str(refresh),
             'access': str(access),
+            'user': str(user)
         }

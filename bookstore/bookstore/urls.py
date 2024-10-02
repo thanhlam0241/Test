@@ -23,6 +23,7 @@ from record.views import RecordViewSet
 from user.views import UserViewSet
 from user.authenticate import RegisterView, LoginView
 from rest_framework.authtoken.views import obtain_auth_token 
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 router = DefaultRouter()
 
@@ -31,10 +32,10 @@ router.register(r'books', BookViewSet, basename='book')
 router.register(r'record', RecordViewSet, basename='record')
 
 urlpatterns = [
-    path('register', RegisterView.as_view(), name='register'),
-    path('login', LoginView.as_view(), name='login'),
-    path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'), 
-    path('api-auth/', include('rest_framework.urls'))
-]
+    path('api/register', RegisterView.as_view(), name='register'),
+    path('api/login', LoginView.as_view(), name='login'),
+    path('api/', include(router.urls)),
+    path('api/admin/', admin.site.urls),
+    path('api/api-token-auth/', obtain_auth_token, name='api_token_auth'), 
+    path('api/api-auth/', include('rest_framework.urls'))
+] + debug_toolbar_urls()
