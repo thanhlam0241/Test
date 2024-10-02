@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
-import { UserType } from '../../models/models';
 
 export interface TableElement {
   name: string;

@@ -5,6 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
 from user.models import CustomUser
+from rest_framework.decorators import api_view
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser
 
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 
@@ -25,14 +28,10 @@ class LoginView(APIView):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                user = CustomUser.objects.get(email=request.data.get('email'))
-                if user and user.check_password(request.data.get('password')):
-                    tokens = serializer.get_tokens(user)
-                    return Response(tokens, status=status.HTTP_200_OK)
-                else:
-                    return Response("Password incorrect", status=status.HTTP_400_BAD_REQUEST)
-            except User.DoesNotExist:
-                print("User does not exist")
-            except User.MultipleObjectsReturned:
-                print("Multiple users found with this username")
+                userModel = CustomUser.objects.get(email=request.data.get('email'))
+                user = UserSerializer(userModel).data
+                tokens = serializer.get_tokens(userModel, user)
+                return Response(tokens, status=status.HTTP_200_OK)
+            except Exception as ex:
+                print(ex)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

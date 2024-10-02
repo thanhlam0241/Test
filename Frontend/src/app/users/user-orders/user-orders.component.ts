@@ -10,19 +10,19 @@ import { ApiService } from '../../shared/services/api.service';
 })
 export class UserOrdersComponent {
   columnsForPendingReturns: string[] = [
-    'orderId',
-    'bookId',
+    'id',
+    'userId',
+    'userName',
     'bookTitle',
     'orderDate',
-    'fineToPay',
   ];
   columnsForCompletedReturns: string[] = [
-    'orderId',
-    'bookId',
+    'id',
+    'userId',
+    'userName',
     'bookTitle',
     'orderDate',
     'returnedDate',
-    'finePaid',
   ];
   pendingReturns: Record[] = [];
   completedReturns: Record[] = [];

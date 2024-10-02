@@ -8,6 +8,7 @@ class Book(models.Model):
     url = models.TextField()
     available = models.BooleanField(default=True)
     public_year = models.IntegerField(default=2000)
+    number = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.title} by {self.author}'

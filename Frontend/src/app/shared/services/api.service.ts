@@ -16,7 +16,7 @@ import { environment as env } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl: string = env.apiUrl;
+  baseUrl: string = 'http://localhost:8000'; // env.apiUrl
   userStatus: Subject<string> = new Subject();
 
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}
@@ -43,13 +43,13 @@ export class ApiService {
     if (!this.isLoggedIn()) return null;
     var decodedToken = this.jwt.decodeToken();
     var user: User = {
-      id: decodedToken.id,
-      email: decodedToken.email,
-      name: decodedToken.name,
-      mobileNumber: decodedToken.mobileNumber,
-      is_staff: decodedToken.is_staff,
-      date_joined: decodedToken.date_joined,
-      address: decodedToken.address,
+      id: decodedToken.data.id,
+      email: decodedToken.data.email,
+      name: decodedToken.data.name,
+      mobileNumber: decodedToken.data.mobileNumber,
+      is_staff: decodedToken.data.is_staff,
+      date_joined: decodedToken.data.date_joined,
+      address: decodedToken.data.address,
     };
     return user;
   }
@@ -65,14 +65,17 @@ export class ApiService {
 
   orderBook(book: Book) {
     let userId = this.getUserInfo()!.id;
-    let params = new HttpParams()
-      .append('userId', userId)
-      .append('bookId', book.id);
 
-    return this.http.post(this.baseUrl + '/records', null, {
-      params: params,
-      responseType: 'text',
-    });
+    return this.http.post(
+      this.baseUrl + '/records/borrow',
+      {
+        userId: userId,
+        bookId: book.id,
+      },
+      {
+        responseType: 'text',
+      }
+    );
   }
 
   getOrdersOfUser(userId: number) {
@@ -157,7 +160,7 @@ export class ApiService {
   }
 
   getUsers() {
-    return this.http.get<User[]>(this.baseUrl + '/users');
+    return this.http.get<ResultPaging<User>>(this.baseUrl + '/users');
   }
 
   approveRequest(userId: number) {

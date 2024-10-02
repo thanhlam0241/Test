@@ -31,9 +31,7 @@ export class PageSideNavComponent {
                 { value: 'Maintenance', link: '/maintenance' },
                 { value: 'Return Book', link: '/return-book' },
                 { value: 'View Users', link: '/view-users' },
-                { value: 'Aprooval Requests', link: '/approval-requests' },
                 { value: 'All Orders', link: '/all-orders' },
-                { value: 'My Orders', link: '/my-orders' },
               ];
             } else {
               this.panelName = 'Student Panel';

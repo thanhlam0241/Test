@@ -34,7 +34,7 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io',
     'http://localhost', 'http://127.0.0.1',
-    '4200-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io'
+    'https://4200-thanhlam0241-test-fp7eippd4qj.ws-us116.gitpod.io'
 ]
 
 # Application definition
@@ -90,6 +90,20 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+}
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
 

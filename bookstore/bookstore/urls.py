@@ -29,13 +29,13 @@ router = DefaultRouter()
 
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'books', BookViewSet, basename='book')
-router.register(r'record', RecordViewSet, basename='record')
+router.register(r'records', RecordViewSet, basename='record')
 
 urlpatterns = [
-    path('api/register', RegisterView.as_view(), name='register'),
-    path('api/login', LoginView.as_view(), name='login'),
-    path('api/', include(router.urls)),
-    path('api/admin/', admin.site.urls),
-    path('api/api-token-auth/', obtain_auth_token, name='api_token_auth'), 
-    path('api/api-auth/', include('rest_framework.urls'))
+    path('register', RegisterView.as_view(), name='register'),
+    path('login', LoginView.as_view(), name='login'),
+    path('', include(router.urls)),
+    path('admin/', admin.site.urls),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'), 
+    path('api-auth/', include('rest_framework.urls'))
 ] + debug_toolbar_urls()

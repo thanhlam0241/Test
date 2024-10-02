@@ -8,19 +8,17 @@ from django.contrib.auth import authenticate
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['email', 'is_staff']
-
-User = get_user_model()
+        fields = ['email', 'is_staff', 'id', 'name', 'mobileNumber', 'address', 'is_active', 'date_joined']
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['email', 'password', 'id', 'is_staff', 'name', 'mobileNumber']
 
     def create(self, validated_data):
-        user = User.objects.create_user(
+        user = CustomUser.objects.create_user(
             email=validated_data['email'],
             password=validated_data['password'],
             name=validated_data['name'],
@@ -28,10 +26,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
     
-    def getInfo(self, userId):
-        user = User.object.filter(email=request.data.get('email'))
-        return user
-
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
@@ -45,12 +39,11 @@ class LoginSerializer(serializers.Serializer):
             return user
         raise serializers.ValidationError("Invalid credentials")
 
-    def get_tokens(self, user):
+    def get_tokens(self, user, userData):
         refresh = RefreshToken.for_user(user)
         access = refresh.access_token
-        access['id'] = user.id
+        access['data'] = userData
         return {
             'refresh': str(refresh),
-            'access': str(access),
-            'user': str(user)
+            'access': str(access)
         }

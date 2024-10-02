@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AccountStatus, User, UserType } from '../../models/models';
+import { User, ResultPaging } from '../../models/models';
 import { ApiService } from '../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -10,22 +10,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ViewUsersComponent {
   columns: string[] = [
-    'userId',
-    'userName',
+    'id',
+    'name',
     'email',
     'mobileNumber',
-    'createdOn',
-    'accountStatus',
-    'unblock',
-    'userType',
+    'address',
+    'approve',
   ];
   users: User[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     apiService.getUsers().subscribe({
-      next: (res: User[]) => {
-        this.users = [];
-        res.forEach((r) => this.users.push(r));
+      next: (res: ResultPaging<User>) => {
+        this.users = res.results;
       },
     });
   }

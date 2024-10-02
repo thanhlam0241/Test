@@ -16,11 +16,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     mobileNumber = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
+    
+    username=None
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = [email]
 
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return f'{self.email}'
+    

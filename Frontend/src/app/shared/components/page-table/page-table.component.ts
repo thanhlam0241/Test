@@ -1,11 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  AccountStatus,
-  Book,
-  Record,
-  User,
-  UserType,
-} from '../../../models/models';
+import { AccountStatus, Record, User } from '../../../models/models';
 import { ApiService } from '../../services/api.service';
 
 @Component({

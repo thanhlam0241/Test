@@ -11,6 +11,8 @@ mat-card {
   }
 
   mat-card-content {
+    display: flex;
+    justify-content: center;
     table {
       margin-top: 1rem;
 

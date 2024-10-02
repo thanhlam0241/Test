@@ -7,7 +7,6 @@ import { UserOrdersComponent } from './users/user-orders/user-orders.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { MaintenanceComponent } from './books/maintenance/maintenance.component';
 import { ReturnBookComponent } from './books/return-book/return-book.component';
-import { ApprovalRequestsComponent } from './users/approval-requests/approval-requests.component';
 import { AllOrdersComponent } from './users/all-orders/all-orders.component';
 import { ViewUsersComponent } from './users/view-users/view-users.component';
 
@@ -18,9 +17,8 @@ export const routes: Routes = [
   { path: 'my-orders', component: UserOrdersComponent },
   { path: 'maintenance', component: MaintenanceComponent },
   { path: 'return-book', component: ReturnBookComponent },
-  { path: 'approval-requests', component: ApprovalRequestsComponent },
   { path: 'all-orders', component: AllOrdersComponent },
-  { path: "view-users", component: ViewUsersComponent },
+  { path: 'view-users', component: ViewUsersComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

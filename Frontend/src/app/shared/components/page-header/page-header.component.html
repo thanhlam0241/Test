@@ -3,7 +3,7 @@
   <span class="spacer"></span>
   <div class="user-info">
     @if (loggedIn) {
-    <div class="name">Hi, {{ name }}</div>
+    <div class="name">Hi, {{ name ?? "Guy" }}</div>
     }
     <button mat-raised-button color="accent" routerLink="/profile">
       Profile

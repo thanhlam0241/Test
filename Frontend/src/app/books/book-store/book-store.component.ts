@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { Book, ResultPaging } from '../../models/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../shared/services/api.service';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @Component({
   selector: 'book-store',
   templateUrl: './book-store.component.html',
   styleUrl: './book-store.component.scss',
+  imports: [MatGridListModule],
 })
 export class BookStoreComponent {
   displayedColumns: string[] = [
@@ -19,6 +21,8 @@ export class BookStoreComponent {
   ];
   books: Book[] = [];
   count: number = 0;
+  currentPage: number = 1;
+  totalPages: number = 0;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     apiService.getBooks().subscribe({
@@ -27,6 +31,14 @@ export class BookStoreComponent {
         this.count = res.count;
       },
     });
+  }
+
+  previousPage() {
+    this.currentPage--;
+  }
+
+  nextPage() {
+    this.currentPage++;
   }
 
   searchBooks(value: string) {
