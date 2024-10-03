@@ -5,14 +5,8 @@
     <mat-icon>search</mat-icon>
   </button>
 </mat-form-field>
-<!-- <mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
-</mat-grid-list> -->
 
-<mat-grid-list cols="4" rowHeight="1:1" [gutterSize]="'10px'">
+<mat-grid-list  cols="5" [gutterSize]="'20px'">
   <mat-grid-tile *ngFor="let book of books">
     <div class="book-item">
       <img [src]="book.url" alt="{{ book.title }}" class="book-image" />

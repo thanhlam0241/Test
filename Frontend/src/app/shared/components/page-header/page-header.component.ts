@@ -13,7 +13,7 @@ export class PageHeaderComponent {
   constructor(private apiService: ApiService) {
     apiService.userStatus.subscribe({
       next: (res) => {
-        if (res == 'loggedIn') {
+        if (res) {
           this.loggedIn = true;
           let user = apiService.getUserInfo()!;
           this.name = `${user.name}`;

@@ -3,7 +3,8 @@ export interface Environment {
   apiUrl: string;
 }
 
-export const environment : Environment = {
-    production: false,
+export const environment: Environment = {
+  production: false,
   apiUrl: '/api',
+  // apiUrl: 'http://localhost:8000',
 };

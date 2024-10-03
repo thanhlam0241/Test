@@ -43,8 +43,8 @@ export interface Book {
 
 export interface ResultPaging<T> {
   count: number;
-  next: string;
-  previous: string;
+  next?: string;
+  previous?: string;
   results: T[];
 }
 

@@ -35,7 +35,7 @@ urlpatterns = [
     path('register', RegisterView.as_view(), name='register'),
     path('login', LoginView.as_view(), name='login'),
     path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'), 
-    path('api-auth/', include('rest_framework.urls'))
+    path('admin', admin.site.urls),
+    path('api-token-auth', obtain_auth_token, name='api_token_auth'), 
+    path('api-auth', include('rest_framework.urls'))
 ] + debug_toolbar_urls()

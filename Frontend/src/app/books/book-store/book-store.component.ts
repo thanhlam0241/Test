@@ -8,8 +8,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
   selector: 'book-store',
   templateUrl: './book-store.component.html',
   styleUrl: './book-store.component.scss',
-  imports: [MatGridListModule],
-  standalone: true,
 })
 export class BookStoreComponent {
   displayedColumns: string[] = [
@@ -26,20 +24,27 @@ export class BookStoreComponent {
   totalPages: number = 0;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
-    apiService.getBooks().subscribe({
+    this.getDataBook();
+  }
+
+  getDataBook() {
+    this.apiService.getBooks(this.currentPage).subscribe({
       next: (res: ResultPaging<Book>) => {
         this.books = res.results;
         this.count = res.count;
+        this.totalPages = Math.ceil(res.count / 20);
       },
     });
   }
 
   previousPage() {
     this.currentPage--;
+    this.getDataBook();
   }
 
   nextPage() {
     this.currentPage++;
+    this.getDataBook();
   }
 
   searchBooks(value: string) {

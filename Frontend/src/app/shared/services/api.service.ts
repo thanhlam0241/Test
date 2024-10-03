@@ -16,7 +16,7 @@ import { environment as env } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl: string = 'http://localhost:8000'; // env.apiUrl
+  baseUrl: string = env.apiUrl; //
   userStatus: Subject<string> = new Subject();
 
   constructor(private http: HttpClient, private jwt: JwtHelperService) {}
@@ -59,8 +59,10 @@ export class ApiService {
     this.userStatus.next('loggedOff');
   }
 
-  getBooks() {
-    return this.http.get<ResultPaging<Book>>(this.baseUrl + '/books');
+  getBooks(page: number) {
+    return this.http.get<ResultPaging<Book>>(
+      this.baseUrl + '/books/' + `${page == 1 ? '' : '?page=' + page}`
+    );
   }
 
   orderBook(book: Book) {
