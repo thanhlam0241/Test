@@ -11,9 +11,25 @@ services:
     ports:
       - "8000:8000"
 
-  # client:
-  #   build: ./Frontend
-  #   volumes:
-  #     - .:/Frontend
+  client:
+    build: ./Frontend
+    volumes:
+      - ./Frontend:/Frontend
+    ports:
+      - 8001:8001
+
+  # angular:
+  #   image: test/angular-app:dev
+  #   build:
+  #     dockerfile: docker/Dockerfile.angular
+  #     context: .
+
+  # api:
+  #   image: test/api-app:dev
+  #   build:
+  #     dockerfile: docker/Dockerfile.django
+  #     context: .
+  #   environment:
+  #     PORT: 8080
   #   ports:
-  #     - 8001:8001
+  #     - 8080:8080
