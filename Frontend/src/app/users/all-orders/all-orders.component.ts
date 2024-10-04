@@ -50,7 +50,7 @@ export class AllOrdersComponent {
       case 2:
         return `Borrowing`;
       default:
-        return `Returning`;
+        return `Returned`;
     }
   }
 

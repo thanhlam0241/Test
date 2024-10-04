@@ -123,12 +123,12 @@ export class ApiService {
   }
 
   getBookinfo(id: number) {
-    let url = this.baseUrl + `/books/${id}`;
+    let url = this.baseUrl + `/books/${id}/`;
     return this.http.get<Book>(url);
   }
 
   updateBook(newBook: Book) {
-    return this.http.put<any>(`${this.baseUrl}/books/${newBook.id}`, {
+    return this.http.put<any>(`${this.baseUrl}/books/${newBook.id}/`, {
       ...newBook,
     });
   }
@@ -225,7 +225,7 @@ export class ApiService {
 
   getBorrowBookList(id: number) {
     return this.http.get<Record[]>(
-      this.baseUrl + '/records/get_number_borrow',
+      this.baseUrl + '/records/get_number_borrow/',
       {
         params: new HttpParams().append('bookId', id),
       }
@@ -249,14 +249,14 @@ export class ApiService {
 
   getAllOrder(page: number, status: string) {
     return this.http.get<ResultPaging<RecordAdmin>>(
-      this.baseUrl + '/records' + `?page=${page}&status=${status}`
+      this.baseUrl + '/records/' + `?page=${page}&status=${status}`
     );
   }
 
   getOrdersOfUser(userId: number) {
     let params = new HttpParams().append('userId', userId);
     return this.http
-      .get<any>(this.baseUrl + '/records/get_by_user_id', {
+      .get<any>(this.baseUrl + '/records/get_by_user_id/', {
         params: params,
       })
       .pipe(
@@ -291,7 +291,7 @@ export class ApiService {
   }
 
   getOrders() {
-    return this.http.get<any>(this.baseUrl + '/records').pipe(
+    return this.http.get<any>(this.baseUrl + '/records/').pipe(
       map((orders) => {
         let newOrders = orders.map((order: any) => {
           let newOrder: Record = {
@@ -313,14 +313,14 @@ export class ApiService {
   /*********************************Category**********************************/
   addNewCategory(category: BookCategoryInsertDto) {
     if (!this.isAdmin()) return new Subject();
-    return this.http.post(this.baseUrl + '/categories', category, {
+    return this.http.post(this.baseUrl + '/categories/', category, {
       responseType: 'text',
     });
   }
 
   getCategoriesByListIds(ids: number[]) {
     return this.http.post<ResultPaging<BookCategory>>(
-      this.baseUrl + '/categories',
+      this.baseUrl + '/categories/list/',
       {
         list: ids,
       }
@@ -329,7 +329,7 @@ export class ApiService {
 
   getCategories() {
     return this.http.get<ResultPaging<BookCategory>>(
-      this.baseUrl + '/categories'
+      this.baseUrl + '/categories/'
     );
   }
 

@@ -87,8 +87,8 @@ export class BookDetailComponent implements OnInit {
   }
 
   getListCategoriesName() {
-    let n = this.listCategory.length;
-    if (n === 0) return ['Unknown'];
+    let n = this.listCategory?.length;
+    if (!n || n === 0) return ['Unknown'];
     let res: string[] = [];
     let l = n > 6 ? 6 : n;
     for (let i = 0; i < l; ++i) {

@@ -45,7 +45,7 @@ export class UserOrdersComponent {
       case 2:
         return `Borrowing (${this.borrowingRecord.length})`;
       default:
-        return `Returning (${this.returnedRecord.length})`;
+        return `Returned (${this.returnedRecord.length})`;
     }
   }
 
