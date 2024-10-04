@@ -18,7 +18,7 @@ export class PageTableComponent {
   approve = new EventEmitter<User>();
 
   @Output()
-  unblock = new EventEmitter<User>();
+  action = new EventEmitter<Record>();
 
   getFineToPay(order: Record) {
     return this.apiService.getFine(order);

@@ -1,0 +1,11 @@
+<!-- dialog.component.html -->
+<h2 mat-dialog-title>{{ _header }}</h2>
+
+<mat-dialog-content>
+  <p>{{ _content }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button (click)="onClose()" color="warn">Close</button>
+  <button mat-flat-button (click)="onAgree()" color="primary">Agree</button>
+</mat-dialog-actions>

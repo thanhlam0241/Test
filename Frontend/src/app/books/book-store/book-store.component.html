@@ -6,15 +6,11 @@
   </button>
 </mat-form-field>
 
-<mat-grid-list  cols="5" [gutterSize]="'20px'">
-  <mat-grid-tile *ngFor="let book of books">
-    <div class="book-item">
-      <img [src]="book.url" alt="{{ book.title }}" class="book-image" />
-      <h3>{{ book.title }}</h3>
-      <p>Author: {{ book.author }}</p>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="book-list-container">
+  <div class="book-grid">
+    <app-book *ngFor="let book of books" [book]="book"> </app-book>
+  </div>
+</div>
 
 <div class="pagination">
   <button (click)="previousPage()" [disabled]="currentPage === 1">

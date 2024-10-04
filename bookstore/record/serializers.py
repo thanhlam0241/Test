@@ -3,6 +3,7 @@ from rest_framework import serializers
 from record.models import Record
 from book.serializers import BookSerializer
 from user.serializers import CustomUser
+from record.filter import RecordFilter
 
 class RecordSerializer(serializers.ModelSerializer):
     book = BookSerializer(read_only=True)

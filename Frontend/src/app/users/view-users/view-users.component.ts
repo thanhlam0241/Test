@@ -18,11 +18,30 @@ export class ViewUsersComponent {
     'approve',
   ];
   users: User[] = [];
+  count: number = 0;
+  currentPage: number = 1;
+  totalPages: number = 0;
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
-    apiService.getUsers().subscribe({
+    this.getDataUser();
+  }
+
+  previousPage() {
+    this.currentPage--;
+    this.getDataUser();
+  }
+
+  nextPage() {
+    this.currentPage++;
+    this.getDataUser();
+  }
+
+  getDataUser() {
+    this.apiService.getUsers(this.currentPage).subscribe({
       next: (res: ResultPaging<User>) => {
         this.users = res.results;
+        this.count = res.count || 0;
+        this.totalPages = Math.ceil((res.count || 0) / 20);
       },
     });
   }

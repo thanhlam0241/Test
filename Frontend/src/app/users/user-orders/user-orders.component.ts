@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Record } from '../../models/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../shared/services/api.service';
+import { STATUS_BOOK } from '../../enum/OrderStatus';
 
 @Component({
   selector: 'user-orders',
@@ -9,32 +10,43 @@ import { ApiService } from '../../shared/services/api.service';
   styleUrl: './user-orders.component.scss',
 })
 export class UserOrdersComponent {
-  columnsForPendingReturns: string[] = [
-    'id',
-    'userId',
-    'userName',
-    'bookTitle',
-    'orderDate',
+  columns: string[] = [
+    'order_id',
+    'user_id',
+    'book_id',
+    'borrow_date',
+    'status',
   ];
-  columnsForCompletedReturns: string[] = [
-    'id',
-    'userId',
-    'userName',
-    'bookTitle',
-    'orderDate',
-    'returnedDate',
-  ];
-  pendingReturns: Record[] = [];
-  completedReturns: Record[] = [];
+  pendingRecords: Record[] = [];
+  borrowingRecord: Record[] = [];
+  returnedRecord: Record[] = [];
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     let userId = this.apiService.getUserInfo()!.id;
     apiService.getOrdersOfUser(userId).subscribe({
       next: (res: Record[]) => {
-        this.pendingReturns = res.filter((o) => o.status === 'Borrowed');
-        this.completedReturns = res.filter((o) => o.status === 'Returned');
+        this.pendingRecords = res.filter(
+          (o) => o.status === STATUS_BOOK.PENDING.value
+        );
+        this.borrowingRecord = res.filter(
+          (o) => o.status === STATUS_BOOK.BORROWED.value
+        );
+        this.returnedRecord = res.filter(
+          (o) => o.status === STATUS_BOOK.RETURN.value
+        );
       },
     });
+  }
+
+  getTextTab(type: number) {
+    switch (type) {
+      case 1:
+        return `Pending (${this.pendingRecords.length})`;
+      case 2:
+        return `Borrowing (${this.borrowingRecord.length})`;
+      default:
+        return `Returning (${this.returnedRecord.length})`;
+    }
   }
 
   getFineToPay(order: Record) {

@@ -1,24 +1,19 @@
 mat-card {
-  width: max-content;
+  width: 100%;
   margin-bottom: 2rem;
 }
 
+.mat-mdc-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
 mat-form-field {
-  margin-right: 1rem;
-}
-
-.category-select {
-  width: 400px;
-}
-
-.book-title {
-  width: 500px;
-}
-
-.book-author {
-  width: 300px;
-}
-
-.book-price {
-  width: 100px;
+  // margin-right: 1rem;
+  width: 100%;
+  overflow: hidden;
+  width: 700px;
 }

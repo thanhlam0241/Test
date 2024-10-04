@@ -10,8 +10,24 @@ mat-sidenav-container {
     flex-direction: column;
 
     main {
-        padding: 1rem;
-      flex: 1 1 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
+}
+
+app-root {
+  z-index: 1;
+}
+app-toast,
+.toast-class {
+  z-index: 2;
+}
+
+.auto-hide {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -9,6 +9,7 @@ import { MaintenanceComponent } from './books/maintenance/maintenance.component'
 import { ReturnBookComponent } from './books/return-book/return-book.component';
 import { AllOrdersComponent } from './users/all-orders/all-orders.component';
 import { ViewUsersComponent } from './users/view-users/view-users.component';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'return-book', component: ReturnBookComponent },
   { path: 'all-orders', component: AllOrdersComponent },
   { path: 'view-users', component: ViewUsersComponent },
+  { path: 'book/:id', component: BookDetailComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

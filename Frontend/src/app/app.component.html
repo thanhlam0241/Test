@@ -1,17 +1,13 @@
 <mat-sidenav-container>
-
-    <mat-sidenav opened mode="side">
-        <page-side-nav></page-side-nav>
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-        <page-header></page-header>
-
-        <main>
-            <router-outlet></router-outlet>
-        </main>
-
-        <page-footer></page-footer>
-    </mat-sidenav-content>
-
+  <mat-sidenav #sidenav [opened]="isOpen ? 'true' : 'false'">
+    <page-side-nav></page-side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-loading />
+    <app-toast></app-toast>
+    <page-header (onToggleMenu)="onToggle()"></page-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
 </mat-sidenav-container>

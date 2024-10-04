@@ -27,6 +27,9 @@
     }
 
     mat-card-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
       button {
         margin: auto;
         width: 80%;

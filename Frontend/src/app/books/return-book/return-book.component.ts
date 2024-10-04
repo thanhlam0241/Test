@@ -30,8 +30,8 @@ export class ReturnBookComponent {
 
     this.apiService.getOrdersOfUser(userId).subscribe({
       next: (res: Record[]) => {
-        if (res.some((o) => !o.return_date && o.bookId == bookId)) {
-          let order: Record = res.filter((o) => o.bookId == bookId)[0];
+        if (res.some((o) => !o.return_date && o.book_id == bookId)) {
+          let order: Record = res.filter((o) => o.book_id == bookId)[0];
           this.fineToPay = this.apiService.getFine(order);
         } else {
           this.snackBar.open(`User doesn't have Book with ID: ${bookId}`, 'OK');
@@ -41,10 +41,9 @@ export class ReturnBookComponent {
   }
 
   returnBook() {
-    let userId = this.returnForm.get('userId')?.value;
     let bookId = this.returnForm.get('bookId')?.value;
 
-    this.apiService.returnBook(userId, bookId, this.fineToPay!).subscribe({
+    this.apiService.returnBook(bookId).subscribe({
       next: (res) => {
         if (res === 'returned')
           this.snackBar.open('Book has been Returned!', 'OK');

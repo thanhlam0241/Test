@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from book.views import BookViewSet
+from book.views import BookViewSet, CategoryViewSet
 from record.views import RecordViewSet
 from user.views import UserViewSet
 from user.authenticate import RegisterView, LoginView
@@ -29,6 +29,7 @@ router = DefaultRouter()
 
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'books', BookViewSet, basename='book')
+router.register(r'categories', CategoryViewSet, basename='category')
 router.register(r'records', RecordViewSet, basename='record')
 
 urlpatterns = [

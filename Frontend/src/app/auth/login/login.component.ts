@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../shared/services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -15,7 +16,8 @@ export class LoginComponent {
   constructor(
     fb: FormBuilder,
     private apiService: ApiService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.loginForm = fb.group({
       email: fb.control('thanhlam0241@gmail.com', [Validators.required]),
@@ -35,6 +37,7 @@ export class LoginComponent {
         else {
           localStorage.setItem('access', res.access);
           this.apiService.userStatus.next('loggedIn');
+          this.router.navigateByUrl('/home');
         }
       },
     });

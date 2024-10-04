@@ -1,34 +1,62 @@
-<mat-card>
-    <mat-card-content>
-        <h1>Orders With Pending Returns (1)</h1>
+<mat-tab-group (selectedTabChange)="changeTab($event)" animationDuration="0ms">
+  <mat-tab [label]="getTextTab(1)">
+    @if (pendingRecords.length > 0) {
+    <page-table
+      [columns]="columns"
+      (action)="action($event)"
+      [dataSource]="pendingRecords"
+    >
+    </page-table>
+    } @else {
+    <mat-card>
+      <mat-card-content>
+        <h2>No Data!</h2>
+      </mat-card-content>
+    </mat-card>
+    }
+  </mat-tab>
 
-        <button mat-raised-button color="accent" (click)="sendEmail()">
-            Send Email About Pending Returns
-        </button>
-        <button mat-raised-button color="accent" (click)="blockUsers()">
-            Block Overdue Users
-        </button>
-    </mat-card-content>
+  <mat-tab [label]="getTextTab(2)">
+    @if (borrowingRecord.length > 0) {
+    <page-table
+      (action)="action($event)"
+      [columns]="columns"
+      [dataSource]="borrowingRecord"
+    >
+    </page-table>
+    } @else {
+    <mat-card>
+      <mat-card-content>
+        <h2>No Data!</h2>
+      </mat-card-content>
+    </mat-card>
+    }
+  </mat-tab>
 
-    <mat-card-footer>
-        @if (showProgressBar) {
-        <mat-progress-bar mode="indeterminate"
-                          color="accent">
-        </mat-progress-bar>
-        }
-    </mat-card-footer>
-</mat-card>
+  <mat-tab [label]="getTextTab(3)">
+    @if (returnedRecord.length > 0) {
+    <page-table
+      (action)="action($event)"
+      [columns]="columns"
+      [dataSource]="returnedRecord"
+    >
+    </page-table>
+    } @else {
+    <mat-card>
+      <mat-card-content>
+        <h2>No Data!</h2>
+      </mat-card-content>
+    </mat-card>
+    }
+  </mat-tab>
+</mat-tab-group>
 
-<page-table [columns]="columnsForPendingReturns"
-            [dataSource]="ordersWithPendingReturns">
-</page-table>
-
-<mat-card>
-    <mat-card-content>
-        <h1>Orders With Completed Returns (2)</h1>
-    </mat-card-content>
-</mat-card>
-
-<page-table [columns]="columnsForCompletedReturns"
-            [dataSource]="ordersWithCompletedReturns">
-</page-table>
+<div class="pagination">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">
+    Previous
+  </button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Next
+  </button>
+</div>

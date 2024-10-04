@@ -1,0 +1,143 @@
+.book-detail-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.book-cover {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-cover img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.thumbnails img {
+  width: 20%;
+  margin-right: 5px;
+}
+
+.sample-button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.book-info {
+  width: 65%;
+}
+
+.book-info h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.kindle-button {
+  background-color: #e6f2ff;
+  border: none;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.book-description p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.read-more {
+  background-color: transparent;
+  color: blue;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .book-detail-container {
+    flex-direction: column;
+  }
+
+  .book-cover,
+  .book-info {
+    width: 100%;
+  }
+}
+
+/* book-status.component.css */
+.book-status {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 10px 0;
+}
+
+.available {
+  background-color: #28a745; /* Green */
+  color: white;
+}
+
+.not-available {
+  background-color: #dc3545; /* Red */
+  color: white;
+}
+
+/* borrow-button.component.css */
+.borrow-button {
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  font-size: 16px; /* Font size */
+  padding: 10px 20px; /* Padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+.borrow-button:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.borrow-button:active {
+  transform: scale(0.95); /* Slightly shrink on click */
+}
+
+/* Container for book categories */
+.book-categories {
+  display: flex;
+  flex-wrap: wrap; /* Wraps to a new line if there are too many tags */
+  gap: 10px; /* Space between the category tags */
+  margin: 20px 0; /* Space around the entire container */
+}
+
+/* Individual category tag styling */
+.category-tag {
+  background-color: #c7b544; /* Light grey background */
+  color: #fff; /* Dark text color */
+  font-size: 14px; /* Font size for the category */
+  padding: 8px 12px; /* Padding inside the tag */
+  border-radius: 30px; /* Rounded borders for a pill-like shape */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  cursor: pointer; /* Pointer on hover */
+}
+
+/* Hover effect to add interactivity */
+.category-tag:hover {
+  background-color: #007bff; /* Change to a blue color on hover */
+  color: white; /* White text on hover */
+  transform: translateY(-3px); /* Slight upward lift effect */
+}
+
+/* Active state (for clicks) */
+.category-tag:active {
+  transform: scale(0.95); /* Shrink slightly when clicked */
+}

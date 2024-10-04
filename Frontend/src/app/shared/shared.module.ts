@@ -8,6 +8,11 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageTableComponent } from './components/page-table/page-table.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { BookComponent } from './components/book/book.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { BookFormComponent } from './components/book-form/book-form.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -16,8 +21,18 @@ import { PageTableComponent } from './components/page-table/page-table.component
     PageSideNavComponent,
     PageNotFoundComponent,
     PageTableComponent,
+    ToastComponent,
+    BookComponent,
+    BookFormComponent,
   ],
-  imports: [CommonModule, MaterialModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+    ReactiveFormsModule,
+    DialogComponent,
+    MatTabsModule,
+  ],
   exports: [
     CommonModule,
     MaterialModule,
@@ -28,6 +43,10 @@ import { PageTableComponent } from './components/page-table/page-table.component
     PageNotFoundComponent,
     ReactiveFormsModule,
     PageTableComponent,
+    ToastComponent,
+    BookComponent,
+    DialogComponent,
+    BookFormComponent,
   ],
 })
 export class SharedModule {}

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
-import { UserType } from '../../../models/models';
 
 export interface NavigationItem {
   value: string;
@@ -21,7 +20,7 @@ export class PageSideNavComponent {
     apiService.userStatus.subscribe({
       next: (status) => {
         if (status == 'loggedIn') {
-          router.navigateByUrl('/home');
+          // router.navigateByUrl('/home');
           let user = apiService.getUserInfo();
           if (user != null) {
             if (user.is_staff) {
@@ -40,6 +39,10 @@ export class PageSideNavComponent {
                 { value: 'My Orders', link: '/my-orders' },
               ];
             }
+          } else {
+            this.panelName = '';
+            router.navigateByUrl('/login');
+            this.navItems = [];
           }
         } else if (status == 'loggedOff') {
           this.panelName = '';

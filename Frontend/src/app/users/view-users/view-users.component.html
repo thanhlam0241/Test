@@ -4,9 +4,14 @@
   </mat-card-content>
 </mat-card>
 
-<page-table
-  [columns]="columns"
-  [dataSource]="users"
-  (unblock)="unblockUser($event)"
->
-</page-table>
+<page-table [columns]="columns" [dataSource]="users"> </page-table>
+
+<div class="pagination">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">
+    Previous
+  </button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Next
+  </button>
+</div>

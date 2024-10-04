@@ -3,3 +3,4 @@ django_rest_framework
 djangorestframework-simplejwt
 django-cors-headers
 django-debug-toolbar
+django-filter

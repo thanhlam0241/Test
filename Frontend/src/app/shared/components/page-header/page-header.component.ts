@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -9,13 +9,15 @@ import { ApiService } from '../../services/api.service';
 export class PageHeaderComponent {
   loggedIn: boolean = false;
   name: string = '';
+  @Output()
+  onToggleMenu = new EventEmitter<void>();
 
   constructor(private apiService: ApiService) {
     apiService.userStatus.subscribe({
       next: (res) => {
-        if (res) {
+        let user = apiService.getUserInfo()!;
+        if (res && user) {
           this.loggedIn = true;
-          let user = apiService.getUserInfo()!;
           this.name = `${user.name}`;
         } else {
           this.loggedIn = false;
@@ -26,5 +28,8 @@ export class PageHeaderComponent {
   }
   logout() {
     this.apiService.logOut();
+  }
+  onToggle() {
+    this.onToggleMenu.emit();
   }
 }

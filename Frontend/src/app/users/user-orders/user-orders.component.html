@@ -1,45 +1,38 @@
-<section class="pending">
+<mat-tab-group animationDuration="0ms">
+  <mat-tab [label]="getTextTab(1)">
+    @if (pendingRecords.length > 0) {
+    <page-table [columns]="columns" [dataSource]="pendingRecords"> </page-table>
+    } @else {
     <mat-card>
-        <mat-card-content>
-            <h2>Pending Returns ({{ pendingReturns.length }})</h2>
-        </mat-card-content>
+      <mat-card-content>
+        <h2>No Data!</h2>
+      </mat-card-content>
     </mat-card>
+    }
+  </mat-tab>
 
-    @if (pendingReturns.length > 0) {
-    <page-table [columns]="columnsForPendingReturns"
-                [dataSource]="pendingReturns">
+  <mat-tab [label]="getTextTab(2)">
+    @if (borrowingRecord.length > 0) {
+    <page-table [columns]="columns" [dataSource]="borrowingRecord">
     </page-table>
-    }
-    @else {
+    } @else {
     <mat-card>
-        <mat-card-content>
-            <h2>No Orders Done Yet!</h2>
-        </mat-card-content>
+      <mat-card-content>
+        <h2>No Data!</h2>
+      </mat-card-content>
     </mat-card>
     }
+  </mat-tab>
 
-
-</section>
-
-<section class="returned">
+  <mat-tab [label]="getTextTab(3)">
+    @if (returnedRecord.length > 0) {
+    <page-table [columns]="columns" [dataSource]="returnedRecord"> </page-table>
+    } @else {
     <mat-card>
-        <mat-card-content>
-            <h2>Returned Orders ({{ completedReturns.length }})</h2>
-        </mat-card-content>
-    </mat-card>
-
-    @if (completedReturns.length > 0) {
-    <page-table [columns]="columnsForCompletedReturns"
-                [dataSource]="completedReturns">
-    </page-table>
-    }
-    @else {
-    <mat-card>
-        <mat-card-content>
-            <h2>No Orders Done Yet!</h2>
-        </mat-card-content>
+      <mat-card-content>
+        <h2>No Data!</h2>
+      </mat-card-content>
     </mat-card>
     }
-
-
-</section>
+  </mat-tab>
+</mat-tab-group>

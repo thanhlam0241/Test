@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Book, ResultPaging } from '../../models/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../shared/services/api.service';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'book-store',
@@ -10,29 +11,30 @@ import { MatGridListModule } from '@angular/material/grid-list';
   styleUrl: './book-store.component.scss',
 })
 export class BookStoreComponent {
-  displayedColumns: string[] = [
-    'id',
-    'title',
-    'author',
-    'publisher',
-    'available',
-    'borrow',
-  ];
+  displayedColumns: string[] = ['id', 'title', 'author', 'publisher', 'number'];
   books: Book[] = [];
   count: number = 0;
   currentPage: number = 1;
   totalPages: number = 0;
+  private searchSubject = new Subject<string>();
+  private readonly debounceTimeMs = 300; // Set the debounce time (in milliseconds)
+  searchStr: string | null = '';
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     this.getDataBook();
+    this.searchSubject
+      .pipe(debounceTime(this.debounceTimeMs))
+      .subscribe((searchValue) => {
+        this.performSearch(searchValue);
+      });
   }
 
   getDataBook() {
-    this.apiService.getBooks(this.currentPage).subscribe({
+    this.apiService.getBooks(this.currentPage, this.searchStr).subscribe({
       next: (res: ResultPaging<Book>) => {
         this.books = res.results;
-        this.count = res.count;
-        this.totalPages = Math.ceil(res.count / 20);
+        this.count = res.count || 0;
+        this.totalPages = Math.ceil((res.count || 0) / 20);
       },
     });
   }
@@ -49,9 +51,18 @@ export class BookStoreComponent {
 
   searchBooks(value: string) {
     value = value.toLowerCase();
-    this.books = this.books.filter((book) => {
-      return book.title.toLowerCase().includes(value);
-    });
+    this.searchSubject.next(value);
+  }
+
+  performSearch(searchValue: string) {
+    // Perform the actual search operation here
+    console.log('Performing search for:', searchValue);
+    this.searchStr = searchValue;
+    this.getDataBook();
+  }
+
+  ngOnDestroy() {
+    this.searchSubject.complete();
   }
 
   getBookCount() {
@@ -62,7 +73,6 @@ export class BookStoreComponent {
     this.apiService.orderBook(book).subscribe({
       next: (res) => {
         if (res === 'ordered') {
-          book.available = false;
           let today = new Date();
           let returnDate = new Date();
           returnDate.setDate(today.getDate() + 10);
