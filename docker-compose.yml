@@ -15,19 +15,3 @@ services:
     build: ./Frontend
     ports:
       - 4200:4200
-
-  # angular:
-  #   image: test/angular-app:dev
-  #   build:
-  #     dockerfile: docker/Dockerfile.angular
-  #     context: .
-
-  # api:
-  #   image: test/api-app:dev
-  #   build:
-  #     dockerfile: docker/Dockerfile.django
-  #     context: .
-  #   environment:
-  #     PORT: 8080
-  #   ports:
-  #     - 8080:8080
