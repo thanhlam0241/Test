@@ -1,0 +1,33 @@
+mat-sidenav-container {
+  height: 100vh;
+
+  mat-sidenav {
+    width: 250px;
+  }
+
+  mat-sidenav-content {
+    display: flex;
+    flex-direction: column;
+
+    main {
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+app-root {
+  z-index: 1;
+}
+app-toast,
+.toast-class {
+  z-index: 2;
+}
+
+.auto-hide {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

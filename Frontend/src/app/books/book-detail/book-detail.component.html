@@ -1,0 +1,50 @@
+<div class="book-detail-container">
+  <!-- Left Section: Book Cover -->
+  <div class="book-cover">
+    <img [src]="getBookField('url')" alt="book.title ?? 'image'" />
+    @if (!isAdmin && available) {
+    <button class="borrow-button" [disabled]="!available" (click)="onBorrow()">
+      {{ actionCanDo }}
+    </button>
+    }
+    <button
+      *ngIf="isAdmin"
+      #modifyButton
+      class="borrow-button"
+      (click)="onModify()"
+    >
+      Modify
+    </button>
+  </div>
+
+  <!-- Right Section: Book Info -->
+  <div class="book-info">
+    <h1>{{ getBookField("title") }}</h1>
+    <div class="book-categories">
+      <span
+        class="category-tag"
+        *ngFor="let category of getListCategoriesName()"
+        >{{ category }}</span
+      >
+    </div>
+    <p>
+      <strong>{{ getBookField("author") }}</strong>
+    </p>
+    <div
+      class="book-status"
+      *ngIf="available"
+      [ngClass]="{
+        available: available,
+        'not-available': !available
+      }"
+    >
+      {{ available ? "Available" : "Out of stock" }}
+    </div>
+
+    <div class="book-description">
+      <p>
+        {{ getBookField("description") }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<mat-form-field color="accent" appearance="outline">
+  <mat-label>Search Books</mat-label>
+  <input matInput (input)="searchBooks(searchField.value)" #searchField />
+  <button mat-icon-button matSuffix>
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-form-field>
+
+<div class="book-list-container">
+  <div class="book-grid">
+    <app-book *ngFor="let book of books" [book]="book"> </app-book>
+  </div>
+</div>
+
+<div class="pagination">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">
+    Previous
+  </button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Next
+  </button>
+</div>
+
+<!-- <mat-card>
+  <mat-card-content>
+    Showing Results for {{ getBookCount() }} Books.
+  </mat-card-content>
+</mat-card>
+
+<mat-accordion multi="true">
+  <mat-expansion-panel [expanded]="true">
+    <table mat-table [dataSource]="books">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef>Book Author</th>
+        <td mat-cell *matCellDef="let element">{{ element.author }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="url">
+        <th mat-header-cell *matHeaderCellDef>Book Image</th>
+        <td mat-cell *matCellDef="let element">{{ element.url }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="publisher">
+        <th mat-header-cell *matHeaderCellDef>Publisher</th>
+        <td mat-cell *matCellDef="let element">{{ element.publisher }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="available">
+        <th mat-header-cell *matHeaderCellDef>Availablity</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.ordered ? "Not Available" : "Available" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="borrow">
+        <th mat-header-cell *matHeaderCellDef>Borrow</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-raised-button
+            color="accent"
+            [disabled]="!element.available"
+            (click)="orderBook(element)"
+          >
+            Order
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-expansion-panel>
+</mat-accordion> -->

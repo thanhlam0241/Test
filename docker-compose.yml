@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: ./bookstore
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./bookstore:/app
+    ports:
+      - "8000:8000"
+
+  client:
+    build: ./Frontend
+    ports:
+      - 4200:4200
+
+  # angular:
+  #   image: test/angular-app:dev
+  #   build:
+  #     dockerfile: docker/Dockerfile.angular
+  #     context: .
+
+  # api:
+  #   image: test/api-app:dev
+  #   build:
+  #     dockerfile: docker/Dockerfile.django
+  #     context: .
+  #   environment:
+  #     PORT: 8080
+  #   ports:
+  #     - 8080:8080

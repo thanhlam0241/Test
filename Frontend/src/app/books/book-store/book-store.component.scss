@@ -1,0 +1,102 @@
+@import "../../../theme.scss";
+
+:host {
+  display: block;
+  padding: 1rem 0;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  // gap: 16px;
+  column-gap: 1em;
+  row-gap: 1ch;
+}
+
+@media (max-width: 1200px) {
+  .book-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .book-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  button {
+    padding: 8px 12px; /* Button size */
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+}
+
+mat-form-field {
+  width: 500px;
+  margin: 0 auto;
+  display: block;
+  padding: 0 10px;
+}
+
+mat-card {
+  width: max-content;
+  margin-bottom: 1rem;
+  mat-card-content {
+    font-size: 1.5rem;
+  }
+}
+
+mat-accordion {
+  mat-panel-title {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: $dark-accent-A200;
+  }
+
+  mat-panel-description {
+    font-style: italic;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  table {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    .mat-mdc-header-cell {
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    .mat-mdc-cell {
+      font-size: 1.2rem;
+    }
+  }
+}

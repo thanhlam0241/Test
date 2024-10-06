@@ -1,0 +1,23 @@
+mat-card {
+  width: max-content;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  .mat-mdc-tab-body-content {
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+table {
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    font-size: 1.1rem;
+  }
+
+  .mat-mdc-header-cell {
+    font-style: italic;
+  }
+}

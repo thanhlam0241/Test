@@ -1,0 +1,22 @@
+<div class="book-card">
+  <div class="book-image">
+    <img
+      [src]="book?.url"
+      (error)="setDefaultImage($event)"
+      alt="{{ book?.title }}"
+      (click)="goToDetail(book?.id)"
+    />
+  </div>
+  <div class="book-details">
+    <span class="auto-hide title">{{ book?.title }}</span>
+    <span class="auto-hide author"
+      ><strong>Author:</strong> {{ book?.author }}</span
+    >
+    <span class="auto-hide"
+      ><strong>Published:</strong> {{ book?.publisher }}</span
+    >
+    <span class="auto-hide price">
+      <strong>Price:</strong> {{ getBookPrice() }}
+    </span>
+  </div>
+</div>
