@@ -13,10 +13,8 @@ services:
 
   client:
     build: ./Frontend
-    volumes:
-      - ./Frontend:/Frontend
     ports:
-      - 8001:8001
+      - 4200:4200
 
   # angular:
   #   image: test/angular-app:dev

@@ -329,7 +329,7 @@ export class ApiService {
 
   getCategories() {
     return this.http.get<ResultPaging<BookCategory>>(
-      this.baseUrl + '/categories/'
+      this.baseUrl + '/categories/all/'
     );
   }
 

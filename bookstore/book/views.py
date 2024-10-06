@@ -15,6 +15,15 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]
     
+    @action(detail=False, methods=['GET'], url_path='all')
+    def get_all(self, request):
+        try:
+            data = Category.objects.all().values()
+            return JsonResponse({'results': list(data)}, status=status.HTTP_200_OK)
+        except Exception as ex:
+            print(ex)
+            return Response('Error occur', status=status.HTTP_204_NO_CONTENT)
+    
     @action(detail=False, methods=['POST'], url_path='list')
     def get_list(self, request):
         try:

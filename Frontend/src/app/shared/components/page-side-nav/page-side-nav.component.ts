@@ -28,7 +28,6 @@ export class PageSideNavComponent {
               this.navItems = [
                 { value: 'View Books', link: '/home' },
                 { value: 'Maintenance', link: '/maintenance' },
-                { value: 'Return Book', link: '/return-book' },
                 { value: 'View Users', link: '/view-users' },
                 { value: 'All Orders', link: '/all-orders' },
               ];
